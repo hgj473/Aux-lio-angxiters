@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IA Programadora</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b0f17;
+      color: white;
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 18px;
+      background: #111827;
+      border-bottom: 1px solid #263044;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 22px;
+    }
+
+    header p {
+      color: #8b9bb4;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .chat {
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+    }
+
+    .welcome {
+      text-align: center;
+      margin: 35px 0;
+    }
+
+    .welcome h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .welcome p {
+      color: #9ca9bc;
+    }
+
+    .message {
+      background: #151d2b;
+      border: 1px solid #263044;
+      border-radius: 14px;
+      padding: 15px;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+
+    .user {
+      border-left: 4px solid #7c3aed;
+    }
+
+    .ai {
+      border-left: 4px solid #22c55e;
+    }
+
+    .input-area {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #0b0f17;
+      padding: 12px;
+      border-top: 1px solid #263044;
+    }
+
+    .input-box {
+      max-width: 700px;
+      margin: auto;
+      display: flex;
+      gap: 8px;
+    }
+
+    textarea {
+      flex: 1;
+      resize: none;
+      height: 52px;
+      border: 1px solid #303b50;
+      border-radius: 12px;
+      background: #151d2b;
+      color: white;
+      padding: 15px;
+      outline: none;
+    }
+
+    button {
+      width: 55px;
+      border: none;
+      border-radius: 12px;
+      background: #7c3aed;
+      color: white;
+      font-size: 20px;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .examples {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 20px;
+      justify-content: center;
+    }
+
+    .example {
+      background: #151d2b;
+      border: 1px solid #303b50;
+      border-radius: 20px;
+      padding: 9px 13px;
+      color: #cbd5e1;
+      font-size: 13px;
+    }
+
+    .space {
+      height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>🤖 IA Programadora</h1>
+  <p>Seu assistente para criar códigos</p>
+</header>
+
+<main class="chat">
+
+  <div class="welcome">
+    <h2>Olá! 👋</h2>
+    <p>O que você quer programar hoje?</p>
+
+    <div class="examples">
+      <div class="example">Criar um site</div>
+      <div class="example">Criar um bot</div>
+      <div class="example">Corrigir código</div>
+      <div class="example">Criar aplicativo</div>
+    </div>
+  </div>
+
+  <div id="messages"></div>
+
+  <div class="space"></div>
+
+</main>
+
+<div class="input-area">
+  <div class="input-box">
+    <textarea id="input" placeholder="Descreva o código que você precisa..."></textarea>
+    <button onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<script>
+function sendMessage() {
+
+  const input = document.getElementById("input");
+  const messages = document.getElementById("messages");
+
+  const text = input.value.trim();
+
+  if (!text) return;
+
+  const userMessage = document.createElement("div");
+  userMessage.className = "message user";
+  userMessage.innerHTML = "<b>Você:</b><br>" + escapeHTML(text);
+
+  messages.appendChild(userMessage);
+
+  input.value = "";
+
+  setTimeout(() => {
+
+    const aiMessage = document.createElement("div");
+    aiMessage.className = "message ai";
+
+    aiMessage.innerHTML =
+      "<b>🤖 IA:</b><br>" +
+      "Recebi seu pedido! Nesta primeira versão estou funcionando como a interface da nossa IA programadora. Em seguida vamos conectar o motor de IA para gerar código de verdade.";
+
+    messages.appendChild(aiMessage);
+
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth"
+    });
+
+  }, 500);
+}
+
+function escapeHTML(text) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+</script>
+
+</body>
+  </html>
